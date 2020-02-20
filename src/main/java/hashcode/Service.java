@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 public class Service {
-    public static final SimpleDateFormat FORMAT = new SimpleDateFormat("HH-mm-ssZ");
+    public static final SimpleDateFormat FORMAT = new SimpleDateFormat("HH-mm-ss");
     public static final String LF = "\n";
 
     public void output(Definition definition) {
@@ -33,7 +33,7 @@ public class Service {
         });
 
         try {
-            FileUtils.writeStringToFile(new File("output/" + FORMAT.format(new Date()) + ".txt"), sb.toString());
+            FileUtils.writeStringToFile(new File("output/" + definition.getFilename() + "_" + FORMAT.format(new Date()) + ".txt"), sb.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

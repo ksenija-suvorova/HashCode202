@@ -4,13 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 public class Definition {
+    private String filename;
     private List<Library> libraries;
     private List<Book> books;
     private List<Integer> scores;
     private int totalDays;
 
-    public Definition(List<Library> libraries, List<Book> books,
+    public Definition(String filename, List<Library> libraries, List<Book> books,
                       int totalDays, List<Integer> scores) {
+        this.filename = filename;
         this.libraries = libraries;
         this.totalDays = totalDays;
         this.scores = scores;
@@ -30,5 +32,12 @@ public class Definition {
 
     public List<Integer> getScores() {
         return scores;
+    }
+
+    public String getFilename() {
+        if (filename.contains(".")) {
+            return filename.substring(0, filename.lastIndexOf(".") - 1);
+        }
+        return filename;
     }
 }

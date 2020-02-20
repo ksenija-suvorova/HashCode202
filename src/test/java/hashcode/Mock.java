@@ -39,7 +39,7 @@ public class Mock {
 
         List<Integer> scores = Arrays.asList(new Integer[] {2, 3});
 
-        Definition definition = new Definition(libraries, books, 10, scores);
+        Definition definition = new Definition("aaa.txt", libraries, books, 10, scores);
 
         definition.getLibraries().stream().forEach(l -> l.loadBooks(books));
 
