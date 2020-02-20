@@ -16,4 +16,12 @@ public class Book {
     public int getScore() {
         return score;
     }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public void setScore(int score){
+        this.score = score;
+    }
 }
