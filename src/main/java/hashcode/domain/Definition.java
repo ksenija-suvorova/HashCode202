@@ -14,6 +14,7 @@ public class Definition {
                       int totalDays, List<Integer> scores) {
         this.filename = filename;
         this.libraries = libraries;
+        this.books = books;
         this.totalDays = totalDays;
         this.scores = scores;
     }

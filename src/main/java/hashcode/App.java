@@ -1,70 +1,72 @@
 package hashcode;
 
 import hashcode.domain.Book;
+import hashcode.domain.Definition;
 import hashcode.domain.Library;
 import org.apache.commons.io.FileUtils;
-import sun.rmi.server.InactiveGroupException;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-public class App
-{
-    public static void main(String[] args) throws IOException
-    {
+public class App {
+    public static void main(String[] args) {
 
-        Integer rowsCount = 0;
-        Set<Book> books = null;
-        Integer booksCount = null;
+        Definition definition = loadDefinition("a_example.txt");
+        System.out.println("definition" + definition);
+    }
+
+    public static Definition loadDefinition(String filename) {
+        List<Book> books = new ArrayList<>();
         Integer libraryCount;
         Integer days;
-        int character=3;
         int lines = 0;
 
-        File file = new File(App.class.getClassLoader().getResource("/a_example.in").getFile());
-
-        String content = FileUtils.readFileToString(file);
+        File file = new File(App.class.getClassLoader().getResource(filename).getFile());
+        String content = null;
+        try {
+            content = FileUtils.readFileToString(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        content = content.replaceAll("\r", "");
 
         String[] line = content.split("\n");
 
         String[] initialLine = line[lines].split(" ");
         lines++;
 
-        booksCount = Integer.valueOf(initialLine[0]);
+        Integer booksCount = Integer.valueOf(initialLine[0]);
         libraryCount = Integer.valueOf(initialLine[1]);
         days = Integer.valueOf(initialLine[2]);
 
         String[] booksScore = line[lines].split(" ");
+        List<Integer> scores = Arrays.asList(booksScore)
+                .stream()
+                .map(s -> Integer.valueOf(s))
+                .collect(Collectors.toList());
         lines++;
 
-        for (int index=1; index<=booksScore.length; index++){
-            Book book = new Book(index,Integer.valueOf(booksScore[index-1]));
+        for (int index=0; index<booksScore.length; index++){
+            Book book = new Book(index, Integer.valueOf(booksScore[index]));
             books.add(book);
         }
 
-        for (int library = 0; library<libraryCount; library++){
-            Set<Integer> booksIds = null;
+        List<Library> libraries = new ArrayList<>();
+        for (int libraryId = 0; libraryId<libraryCount; libraryId++) {
             String[] libraryInformation = line[lines].split(" ");
             lines++;
             String[] libraryBooks = line[lines].split(" ");
             lines++;
-
-            for (int i=0; i<libraryBooks.length; i++){
-                booksIds.add(Integer.valueOf(libraryBooks[i]));
-            }
-
-            List<String> a = new ArrayList<>(books);
-
-
-
-            Library librarys = new Library(library, Integer.valueOf(libraryInformation[1]), Integer.valueOf(libraryInformation[2]), booksIds, null)
-
+            Set<Integer> bookIds = new HashSet(Arrays.asList(libraryBooks));
+            libraries.add(new Library(libraryId, Integer.valueOf(libraryInformation[1]), Integer.valueOf(libraryInformation[2]), bookIds));
         }
 
+        return new Definition(filename, libraries, books, days, scores);
     }
 }
