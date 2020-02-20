@@ -1,7 +1,8 @@
 package hashcode;
 
 import hashcode.domain.Definition;
+import hashcode.domain.Submission;
 
 public interface Strategy {
-    void run(Definition definition);
+    Submission run(Definition definition);
 }

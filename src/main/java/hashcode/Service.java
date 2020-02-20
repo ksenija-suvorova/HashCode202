@@ -1,6 +1,7 @@
 package hashcode;
 
 import hashcode.domain.Definition;
+import hashcode.domain.Submission;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -34,6 +35,32 @@ public class Service {
 
         try {
             FileUtils.writeStringToFile(new File("output/" + definition.getFilename() + "_" + FORMAT.format(new Date()) + ".txt"), sb.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void output(Submission submission) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(submission.getSignup().size()).append(LF);
+
+        submission.getSignup().stream().forEach(l -> {
+            //1st row
+            sb.append(l.getId())
+                    .append(" ")
+                    .append(l.getBooks().size())
+                    .append(LF);
+
+            //2nd row
+            sb.append(l.getBooksForScanning().stream()
+                    .map(b -> "" + b.getId())
+                    .collect(Collectors.joining(" ")))
+                    .append(LF);
+        });
+
+        try {
+            FileUtils.writeStringToFile(new File("output/" + submission.getFilename() + "_" + FORMAT.format(new Date()) + ".txt"), sb.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

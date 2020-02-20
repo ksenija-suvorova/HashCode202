@@ -4,12 +4,12 @@ import hashcode.domain.Definition;
 import hashcode.domain.Submission;
 import org.junit.Test;
 
-public class DumbStrategyTest {
+public class ScoringStrategyTest {
     private Service service = new Service();
 
     @Test
     public void run() {
-        DumbStrategy strategy = new DumbStrategy();
+        ScoringStrategy strategy = new ScoringStrategy();
 
         Definition definition = Mock.createDefinition1();
         strategy.run(definition);
@@ -19,7 +19,7 @@ public class DumbStrategyTest {
     @Test
     public void runAllSet() {
         Submission submission;
-        DumbStrategy strategy = new DumbStrategy();
+        ScoringStrategy strategy = new ScoringStrategy();
 
         Definition definition = App.loadDefinition("a_example.txt");
         submission = strategy.run(definition);

@@ -3,9 +3,11 @@ package hashcode.domain;
 import java.util.List;
 
 public class Submission {
+    private String filename;
     private List<Library> signup;
 
-    public Submission(List<Library> signup) {
+    public Submission(String filename, List<Library> signup) {
+        this.filename = filename;
         this.signup = signup;
     }
 
@@ -15,5 +17,9 @@ public class Submission {
 
     public int getLibraryCount() {
         return signup.size();
+    }
+
+    public String getFilename() {
+        return filename;
     }
 }
