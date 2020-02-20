@@ -37,7 +37,7 @@ public class Definition {
 
     public String getFilename() {
         if (filename.contains(".")) {
-            return filename.substring(0, filename.lastIndexOf(".") - 1);
+            return filename.substring(0, filename.lastIndexOf("."));
         }
         return filename;
     }

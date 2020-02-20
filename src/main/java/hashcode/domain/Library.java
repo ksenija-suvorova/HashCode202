@@ -1,6 +1,7 @@
 package hashcode.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,7 +45,12 @@ public class Library {
         books = bookIds.stream()
                 .map(i -> allBooks.get(i))
                 .collect(Collectors.toSet());
+        /*
+        books = new HashSet<>();
 
+        for (Integer integer: bookIds) {
+            books.add(allBooks.get(integer));
+        }*/
     }
 
     public Set<Book> getBooks() {

@@ -6,8 +6,9 @@ public class DumbStrategy implements Strategy {
 
     @Override
     public void run(Definition definition) {
-        definition.getLibraries().stream().forEach(l -> {
-            l.getBooksForScanning().addAll(l.getBooks());
-        });
+        definition.getLibraries().stream()
+                .forEach(l -> {
+                    l.getBooksForScanning().addAll(l.getBooks());
+                });
     }
 }

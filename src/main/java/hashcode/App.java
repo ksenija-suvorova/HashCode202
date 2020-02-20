@@ -63,9 +63,12 @@ public class App {
             lines++;
             String[] libraryBooks = line[lines].split(" ");
             lines++;
-            Set<Integer> bookIds = new HashSet(Arrays.asList(libraryBooks));
+            Set<Integer> bookIds = new HashSet<Integer>(Arrays.asList(libraryBooks).stream().map(i -> Integer.valueOf(i)).collect(Collectors.toList()));
             libraries.add(new Library(libraryId, Integer.valueOf(libraryInformation[1]), Integer.valueOf(libraryInformation[2]), bookIds));
         }
+
+        libraries.stream()
+                .forEach(l -> l.loadBooks(books));
 
         return new Definition(filename, libraries, books, days, scores);
     }
