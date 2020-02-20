@@ -1,18 +1,21 @@
 package hashcode.domain;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Library {
     private int id;
     private int signup;
     private int booksPerDay;
-    private Set<Integer> books;
+    private Set<Integer> bookIds;
+    private Set<Book> books;
 
-    public Library(int id, int signup, int booksPerDay, Set<Integer> books) {
+    public Library(int id, int signup, int booksPerDay, Set<Integer> bookIds) {
         this.id = id;
         this.signup = signup;
         this.booksPerDay = booksPerDay;
-        this.books = books;
+        this.bookIds = bookIds;
     }
 
     public int getId() {
@@ -27,11 +30,22 @@ public class Library {
         return booksPerDay;
     }
 
-    public Set<Integer> getBooks() {
-        return books;
+    public Set<Integer> getBookIds() {
+        return bookIds;
     }
 
     public int signupLoss() {
         return signup * booksPerDay;
+    }
+
+    public void loadBooks(final List<Book> allBooks) {
+        books = bookIds.stream()
+                .map(i -> allBooks.get(i))
+                .collect(Collectors.toSet());
+
+    }
+
+    public Set<Book> getBooks() {
+        return books;
     }
 }
