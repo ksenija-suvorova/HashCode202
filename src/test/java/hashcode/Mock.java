@@ -14,8 +14,7 @@ import java.util.Map;
 
 public class Mock {
 
-    @Test
-    public void test() {
+    public static Definition createDefinition1() {
         Book book;
         List<Book> books = new ArrayList<>();
 
@@ -43,5 +42,7 @@ public class Mock {
         Definition definition = new Definition(libraries, books, 10, scores);
 
         definition.getLibraries().stream().forEach(l -> l.loadBooks(books));
+
+        return definition;
     }
 }
