@@ -1,5 +1,6 @@
 package hashcode.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ public class Library {
     private int booksPerDay;
     private Set<Integer> bookIds;
     private Set<Book> books;
+    private List<Book> booksForScanning = new ArrayList<>(); //will be filled during the process
 
     public Library(int id, int signup, int booksPerDay, Set<Integer> bookIds) {
         this.id = id;
@@ -47,5 +49,9 @@ public class Library {
 
     public Set<Book> getBooks() {
         return books;
+    }
+
+    public List<Book> getBooksForScanning() {
+        return booksForScanning;
     }
 }
